@@ -13,13 +13,40 @@ import {
 import "antd/dist/antd.css";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
 const SiteLayout = (props) => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
+  
+  const items =[
+            {
+              key: "1",
+              icon: <HomeOutlined />,
+              label: "Home",
+              path:"/"
+            },
+            {
+              key: "2",
+              icon: <SolutionOutlined />,
+              label: "About",
+              path:"/about"
+            },
+            {
+              key: "3",
+              icon: <IdcardOutlined />,
+              label: "Contact",
+              path:"/contact"
+            },
+            {
+              key: "4",
+              icon: <LoginOutlined />,
+              label: "Login",
+              path:"/login"
+            }
+          ]
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -28,29 +55,15 @@ const SiteLayout = (props) => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <HomeOutlined />,
-              label: "Home"
-            },
-            {
-              key: "2",
-              icon: <SolutionOutlined />,
-              label: "About"
-            },
-            {
-              key: "3",
-              icon: <IdcardOutlined />,
-              label: "Contact"
-            },
-            {
-              key: "4",
-              icon: <LoginOutlined />,
-              label: "Login"
-            }
-          ]}
-        />
+        >
+          {
+              items.map((item)=>(
+            <Menu.Item key={item.key} icon={item.icon}>
+              <Link to={item.path}>{item.label}</Link>
+            </Menu.Item>
+            ))
+          }  
+        </Menu>
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
